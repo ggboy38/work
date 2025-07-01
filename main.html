@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>bro免聘 - 招聘系统</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+	<link rel="stylesheet" href="my.css">
+	<script src="layui/layui.js"></script>
+	<script src="echarts.min.js"></script>
+	<script src="my.js"></script>
+</head>
+<body>
+    <div class="header">
+        <span class="logo">bro免聘</span>
+    </div>
+    <div class="main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">总岗位数</div>
+                    <div class="layui-card-body">128</div>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">今日新增</div>
+                    <div class="layui-card-body">12</div>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">简历投递</div>
+                    <div class="layui-card-body">56</div>
+                </div>
+            </div>
+            <div class="layui-col-md3">
+                <div class="layui-card">
+                    <div class="layui-card-header">面试邀请</div>
+                    <div class="layui-card-body">23</div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this">岗位列表</li>
+                <li>新增岗位</li>
+                <li>招聘进度</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <table id="table-data"></table>
+					<div id="main1" style="width: 600px;height:600px;float:left;margin-left: 100px;margin-top: 100px;"></div>
+					<div id="main2" style="width: 600px;height:600px;float:right;margin-right: 100px;margin-top: 100px;"></div>
+                </div>
+                
+                <div class="layui-tab-item">
+                    <form class="layui-form">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">岗位名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" required class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">工作类型</label>
+                            <div class="layui-input-block">
+                                <select name="type" lay-verify="required">
+                                    <option value=""></option>
+                                    <option value="1">全职</option>
+                                    <option value="2">兼职</option>
+                                    <option value="3">实习</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">薪资范围</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="salary" required class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">工作地点</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="location" required class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">岗位描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="desc" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit>发布岗位</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="layui-tab-item">
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content">
+                                <h3 class="layui-timeline-title">8月18日</h3>
+                                <p>新增前端开发岗位</p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content">
+                                <h3 class="layui-timeline-title">8月16日</h3>
+                                <p>收到5份简历投递</p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content">
+                                <h3 class="layui-timeline-title">8月15日</h3>
+                                <p>完成3场面试</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script>
+	var myChart1 = echarts.init(document.getElementById('main1'));
+	var myChart2 = echarts.init(document.getElementById('main2'));
+			
+	option1 = {
+    title: {
+        text: '近期岗位数量变化柱状图',
+        left: 'center'
+    },
+	  xAxis: {
+	    type: 'category',
+	    data: ['1月', '2月', '3月', '4月', '5月', '6月']
+	  },
+	  yAxis: {
+	    type: 'value'
+	  },
+	  series: [
+	    {
+	      data: [4200, 3000, 20000, 35000, 50000, 18000],
+	      type: 'bar'
+	    }
+	  ]
+	};
+
+	option2 = {
+	  title: {
+	    text: '岗位类型分布',
+        left: 'center'
+	  },
+	  tooltip: {
+	    trigger: 'item'
+	  },
+	  legend: {
+	    orient: 'vertical',
+	    left: 'left'
+	  },
+	  series: [
+	    {
+	      name: '岗位类型',
+	      type: 'pie',
+	      radius: '50%',
+	      data: [
+	        { value: 45, name: '全职' },
+	        { value: 25, name: '兼职' },
+	        { value: 30, name: '实习' }
+	      ],
+	      emphasis: {
+	        itemStyle: {
+	          shadowBlur: 10,
+	          shadowOffsetX: 0,
+	          shadowColor: 'rgba(0, 0, 0, 0.5)'
+	        }
+	      }
+	    }
+	  ]
+	};
+
+	myChart1.setOption(option1);
+	myChart2.setOption(option2);
+	</script>
+</body>
+</html> 
